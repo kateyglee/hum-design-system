@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+
+:root {
+  /* Fonts */
+  --font-display: "Geist Mono", monospace;
+  --font-body:    "IBM Plex Sans", system-ui, sans-serif;
+
+  /* Chrome Gray Ramp */
+  --chrome-50:  #F2F2F5;
+  --chrome-200: #DCDCE6;
+  --chrome-300: #C8C8D0;
+  --chrome-400: #9898A8;
+  --chrome-700: #505060;
+  --chrome-800: #3E3E4C;
+  --chrome-900: #2C2C36;
+
+  /* Backgrounds */
+  --bg-deep:    #060608;
+  --bg:         #0A0A0C;
+  --surface:    #141418;
+  --surface-lt: #1A1A20;
+  --surface-md: #202028;
+  --accent-dim:  rgba(200,200,208,0.09);
+  --accent-glow: rgba(200,200,208,0.04);
+  --accent-mid:  rgba(200,200,208,0.15);
+
+  /* Text */
+  --text-primary:   #F2F2F5;
+  --text-md:        #C0C0C8;
+  --text-lt:        #707080;
+  --text-muted:     #505060;
+  --text-disabled:  #2E2E38;
+  --text-accent:    #C8C8D0;
+  --text-accent-dk: #9898A8;
+  --text-success:   #3DD68C;
+  --text-error:     #F06B6B;
+  --text-info:      #6B9EF0;
+  --text-warning:   #E0A34A;
+
+  /* Borders */
+  --border-lt:     #1C1C26;
+  --border:        #242430;
+  --border-dk:     #32323F;
+  --border-accent: rgba(200,200,208,0.18);
+
+  /* Buttons */
+  --btn-primary-text:     #0A0A0C;
+  --btn-primary-disabled: rgba(200,200,208,0.3);
+  --btn-ghost-hover:      #1A1A20;
+
+  /* Semantic state backgrounds */
+  --state-success-bg: rgba(61,214,140,0.1);
+  --state-error-bg:   rgba(240,107,107,0.1);
+  --state-info-bg:    rgba(107,158,240,0.1);
+  --state-warning-bg: rgba(224,163,74,0.1);
+
+  /* Spacing (4px base) */
+  --space-1:  4px;  --space-2:  8px;  --space-3:  12px;
+  --space-4:  16px; --space-5:  20px; --space-6:  24px;
+  --space-8:  32px; --space-10: 40px; --space-12: 48px;
+  --space-16: 64px; --space-20: 80px; --space-24: 96px;
+
+  /* Border radius */
+  --radius-none: 0px;  --radius-sm: 2px; --radius:    4px;
+  --radius-md:   6px;  --radius-lg: 8px; --radius-xl: 10px;
+  --radius-2xl:  12px; --radius-full: 9999px;
+}

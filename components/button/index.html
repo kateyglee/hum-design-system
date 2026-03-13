@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hum — Button Component</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+
+    :root {
+      --font-display: "Geist Mono", monospace;
+      --font-body:    "IBM Plex Sans", system-ui, sans-serif;
+
+      --bg:           #FAFAFA;
+      --bg-warm:      #F4F4F6;
+      --surface:      #FFFFFF;
+      --surface-lt:   #F7F7FA;
+      --surface-md:   #EFEFF2;
+      --accent-dim:   rgba(46,46,56,0.06);
+      --accent-glow:  rgba(46,46,56,0.03);
+
+      --text-primary:   #111116;
+      --text-md:        #3A3A44;
+      --text-lt:        #6B6B78;
+      --text-muted:     #9898A4;
+      --text-disabled:  #C8C8D0;
+      --text-accent:    #2E2E38;
+      --text-accent-dk: #9898A8;
+      --text-success:   #0A6E48;
+      --text-error:     #B91C1C;
+      --text-info:      #1D4ED8;
+      --text-warning:   #92400E;
+
+      --border-lt:     #EDEDF0;
+      --border:        #E2E2E8;
+      --border-dk:     #C8C8D0;
+      --border-accent: rgba(46,46,56,0.25);
+
+      --btn-primary-bg:       #2E2E38;
+      --btn-primary-hover:    #1A1A24;
+      --btn-primary-text:     #FFFFFF;
+      --btn-primary-disabled: rgba(46,46,56,0.3);
+      --btn-outline-bg:       #FFFFFF;
+      --btn-ghost-hover:      #F4F4F6;
+
+      --shadow-sm: 0 1px 3px rgba(17,17,22,0.06), 0 1px 2px rgba(17,17,22,0.04);
+      --shadow-md: 0 4px 12px rgba(17,17,22,0.08), 0 2px 4px rgba(17,17,22,0.04);
+
+      --state-success-bg: #ECFDF5;
+      --state-error-bg:   #FEF2F2;
+      --state-info-bg:    #EFF6FF;
+      --state-warning-bg: #FFFBEB;
+
+      --space-1:  4px;  --space-2:  8px;  --space-3:  12px;
+      --space-4:  16px; --space-5:  20px; --space-6:  24px;
+      --space-8:  32px; --space-10: 40px; --space-12: 48px;
+      --space-16: 64px; --space-20: 80px; --space-24: 96px;
+
+      --radius-none: 0px;  --radius-sm: 2px; --radius:    4px;
+      --radius-md:   6px;  --radius-lg: 8px; --radius-xl: 10px;
+      --radius-2xl:  12px; --radius-full: 9999px;
+    }
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 24px;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ── Button base ── */
+    .btn {
+      font-family: var(--font-display);
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 10px 20px;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      transition: all 0.15s ease;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    /* ── Primary ── */
+    .btn-primary {
+      background: var(--btn-primary-bg);
+      color: var(--btn-primary-text);
+    }
+
+    .btn-primary:hover {
+      background: var(--btn-primary-hover);
+    }
+
+    .btn-primary:active {
+      background: #111116;
+    }
+
+    /* ── Outline ── */
+    .btn-outline {
+      background: var(--btn-outline-bg);
+      border: 1px solid var(--border-dk);
+      color: var(--text-md);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--border-accent);
+      color: var(--text-primary);
+    }
+
+    .btn-outline:active {
+      background: var(--accent-dim);
+    }
+
+    /* ── Ghost ── */
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-muted);
+    }
+
+    .btn-ghost:hover {
+      background: var(--btn-ghost-hover);
+      color: var(--text-lt);
+    }
+
+    .btn-ghost:active {
+      background: var(--accent-dim);
+    }
+
+    /* ── Danger ── */
+    .btn-danger {
+      background: transparent;
+      color: var(--text-error);
+      border: 1px solid rgba(185,28,28,0.2);
+    }
+
+    .btn-danger:hover {
+      background: var(--state-error-bg);
+      border-color: rgba(185,28,28,0.35);
+    }
+
+    .btn-danger:active {
+      background: rgba(185,28,28,0.08);
+    }
+
+    /* ── Disabled ── */
+    .btn:disabled,
+    .btn-disabled {
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    /* ── Sizes ── */
+    .btn-sm {
+      font-size: 12px;
+      line-height: 16px;
+      padding: 6px 12px;
+    }
+
+    .btn-lg {
+      font-size: 14px;
+      line-height: 20px;
+      padding: 14px 28px;
+    }
+
+    /* ── Icon-only ── */
+    .btn-icon {
+      padding: 10px;
+    }
+
+    .btn-icon.btn-sm {
+      padding: 6px;
+    }
+
+    .btn-icon.btn-lg {
+      padding: 14px;
+    }
+
+    /* ── Demo layout ── */
+    .demo {
+      width: 100%;
+      max-width: 720px;
+      padding: var(--space-12);
+    }
+
+    .demo-title {
+      font-family: var(--font-display);
+      font-size: 10px;
+      line-height: 14px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.28em;
+      color: var(--text-muted);
+      margin-bottom: var(--space-6);
+    }
+
+    .demo-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-8);
+      margin-bottom: var(--space-6);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .demo-label {
+      font-family: var(--font-display);
+      font-size: 10px;
+      line-height: 14px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.28em;
+      color: var(--text-lt);
+      margin-bottom: var(--space-4);
+    }
+
+    .demo-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-6);
+    }
+
+    .demo-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .demo-desc {
+      font-family: var(--font-body);
+      font-size: 12px;
+      line-height: 16px;
+      color: var(--text-lt);
+      margin-top: var(--space-1);
+      margin-bottom: var(--space-5);
+    }
+  </style>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <div class="demo">
+    <div class="demo-title">Hum / Button Component</div>
+
+    <div class="demo-section">
+      <!-- Variants -->
+      <div class="demo-label">Variants</div>
+      <div class="demo-row">
+        <button class="btn btn-primary">Primary</button>
+        <button class="btn btn-outline">Outline</button>
+        <button class="btn btn-ghost">Ghost</button>
+        <button class="btn btn-danger">Danger</button>
+      </div>
+
+      <!-- Disabled -->
+      <div class="demo-label">Disabled</div>
+      <div class="demo-row">
+        <button class="btn btn-primary" disabled>Primary</button>
+        <button class="btn btn-outline" disabled>Outline</button>
+        <button class="btn btn-ghost" disabled>Ghost</button>
+        <button class="btn btn-danger" disabled>Danger</button>
+      </div>
+
+      <!-- Sizes -->
+      <div class="demo-label">Sizes</div>
+      <div class="demo-row">
+        <button class="btn btn-primary btn-sm">Small</button>
+        <button class="btn btn-primary">Default</button>
+        <button class="btn btn-primary btn-lg">Large</button>
+      </div>
+
+      <!-- With icons -->
+      <div class="demo-label">With Icons</div>
+      <div class="demo-row">
+        <button class="btn btn-primary">
+          <i data-lucide="plus" style="width:16px;height:16px;"></i>
+          Create
+        </button>
+        <button class="btn btn-outline">
+          <i data-lucide="download" style="width:16px;height:16px;"></i>
+          Export
+        </button>
+        <button class="btn btn-ghost">
+          <i data-lucide="settings" style="width:16px;height:16px;"></i>
+          Settings
+        </button>
+        <button class="btn btn-danger">
+          <i data-lucide="trash-2" style="width:16px;height:16px;"></i>
+          Delete
+        </button>
+      </div>
+
+      <!-- Icon only -->
+      <div class="demo-label">Icon Only</div>
+      <div class="demo-row">
+        <button class="btn btn-primary btn-icon">
+          <i data-lucide="plus" style="width:16px;height:16px;"></i>
+        </button>
+        <button class="btn btn-outline btn-icon">
+          <i data-lucide="search" style="width:16px;height:16px;"></i>
+        </button>
+        <button class="btn btn-ghost btn-icon">
+          <i data-lucide="more-horizontal" style="width:16px;height:16px;"></i>
+        </button>
+        <button class="btn btn-ghost btn-icon btn-sm">
+          <i data-lucide="x" style="width:14px;height:14px;"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>lucide.createIcons();</script>
+</body>
+</html>

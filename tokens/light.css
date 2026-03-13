@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+
+:root {
+  /* Fonts */
+  --font-display: "Geist Mono", monospace;
+  --font-body:    "IBM Plex Sans", system-ui, sans-serif;
+
+  /* Backgrounds */
+  --bg:         #FAFAFA;
+  --bg-warm:    #F4F4F6;
+  --surface:    #FFFFFF;
+  --surface-lt: #F7F7FA;
+  --surface-md: #EFEFF2;
+  --accent-dim:  rgba(46,46,56,0.06);
+  --accent-glow: rgba(46,46,56,0.03);
+
+  /* Text */
+  --text-primary:   #111116;
+  --text-md:        #3A3A44;
+  --text-lt:        #6B6B78;
+  --text-muted:     #9898A4;
+  --text-disabled:  #C8C8D0;
+  --text-accent:    #2E2E38;
+  --text-accent-dk: #9898A8;
+  --text-success:   #0A6E48;
+  --text-error:     #B91C1C;
+  --text-info:      #1D4ED8;
+  --text-warning:   #92400E;
+
+  /* Borders */
+  --border-lt:     #EDEDF0;
+  --border:        #E2E2E8;
+  --border-dk:     #C8C8D0;
+  --border-accent: rgba(46,46,56,0.25);
+
+  /* Buttons */
+  --btn-primary-bg:       #2E2E38;
+  --btn-primary-hover:    #1A1A24;
+  --btn-primary-text:     #FFFFFF;
+  --btn-primary-disabled: rgba(46,46,56,0.3);
+  --btn-outline-bg:       #FFFFFF;
+  --btn-ghost-hover:      #F4F4F6;
+
+  /* Shadows (light theme only) */
+  --shadow-sm: 0 1px 3px rgba(17,17,22,0.06), 0 1px 2px rgba(17,17,22,0.04);
+  --shadow-md: 0 4px 12px rgba(17,17,22,0.08), 0 2px 4px rgba(17,17,22,0.04);
+  --shadow-lg: 0 10px 24px rgba(17,17,22,0.10), 0 4px 8px rgba(17,17,22,0.05);
+  --shadow-xl: 0 20px 40px rgba(17,17,22,0.12), 0 8px 16px rgba(17,17,22,0.06);
+
+  /* Semantic state backgrounds */
+  --state-success-bg: #ECFDF5;
+  --state-error-bg:   #FEF2F2;
+  --state-info-bg:    #EFF6FF;
+  --state-warning-bg: #FFFBEB;
+
+  /* Spacing (4px base) */
+  --space-1:  4px;  --space-2:  8px;  --space-3:  12px;
+  --space-4:  16px; --space-5:  20px; --space-6:  24px;
+  --space-8:  32px; --space-10: 40px; --space-12: 48px;
+  --space-16: 64px; --space-20: 80px; --space-24: 96px;
+
+  /* Border radius */
+  --radius-none: 0px;  --radius-sm: 2px; --radius:    4px;
+  --radius-md:   6px;  --radius-lg: 8px; --radius-xl: 10px;
+  --radius-2xl:  12px; --radius-full: 9999px;
+}
