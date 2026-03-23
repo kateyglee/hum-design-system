@@ -1,8 +1,10 @@
 import Button from './Button';
+import { buttonArgTypes } from './Button.argTypes';
 
 export default {
   title: 'Button/States',
   component: Button,
+  argTypes: buttonArgTypes,
 };
 
 export const Disabled = {
@@ -23,6 +25,32 @@ export const LoadingGhost = {
 
 export const LoadingIconOnly = {
   args: { variant: 'primary', icon: 'plus', iconOnly: true, loading: true },
+};
+
+export const FullWidth = {
+  args: { variant: 'primary', fullWidth: true, children: 'Full Width' },
+  decorators: [
+    (Story) => (
+      <div style={{ width: 320 }}>
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+export const FullWidthWithIcon = {
+  args: { variant: 'outline', fullWidth: true, icon: 'download', children: 'Export Report' },
+  decorators: [
+    (Story) => (
+      <div style={{ width: 320 }}>
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+export const WithTooltip = {
+  args: { variant: 'ghost', icon: 'gear', iconOnly: true, tooltip: 'Open settings' },
 };
 
 export const AllStates = {
@@ -47,6 +75,9 @@ export const AllStates = {
         <Button variant="danger">Default</Button>
         <Button variant="danger" disabled>Disabled</Button>
         <Button variant="danger" loading>Loading…</Button>
+      </div>
+      <div style={{ width: 320 }}>
+        <Button variant="primary" fullWidth>Full Width</Button>
       </div>
     </div>
   ),

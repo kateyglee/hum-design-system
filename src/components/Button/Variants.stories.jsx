@@ -1,8 +1,10 @@
 import Button from './Button';
+import { buttonArgTypes } from './Button.argTypes';
 
 export default {
   title: 'Button/Variants',
   component: Button,
+  argTypes: buttonArgTypes,
 };
 
 export const Primary = {

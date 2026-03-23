@@ -1,8 +1,10 @@
 import Button from './Button';
+import { buttonArgTypes } from './Button.argTypes';
 
 export default {
   title: 'Button/Sizes',
   component: Button,
+  argTypes: buttonArgTypes,
 };
 
 export const Small = {
