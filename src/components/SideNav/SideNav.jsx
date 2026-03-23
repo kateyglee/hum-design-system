@@ -1,5 +1,5 @@
 /**
- * Hum Design System — Header / Sidebar Component
+ * Hum Design System — SideNav Component
  *
  * A self-contained collapsible sidebar with logo, navigation, connectors
  * widget, and user footer. Light theme only (settings/workspace surface).
@@ -137,9 +137,10 @@ const NavItem = ({ icon, label, active, collapsed, badge, onClick }) => {
         color: active ? T.textAccent : T.textMd,
         background: active ? T.accentDim : hovered ? T.surfaceLt : "transparent",
         transition: "background 0.12s, color 0.12s",
+        boxSizing: "border-box",
       }}
     >
-      <Ph name={icon} size={16} color={active ? T.textAccent : T.textLt} />
+      <Ph name={icon} size={16} color={active ? "var(--icon-active)" : "var(--icon-default)"} />
       {!collapsed && <span style={{ flex: 1 }}>{label}</span>}
       {!collapsed && badge && (
         <span
@@ -174,19 +175,22 @@ const ChatRow = ({ label, starred, active, onClick }) => {
         display: "flex",
         alignItems: "center",
         height: 32,
+        minHeight: 32,
+        flexShrink: 0,
         padding: "0 4px 0 10px",
         borderRadius: T.radiusMd,
         cursor: "pointer",
         background: active ? T.accentDim : hovered ? T.surfaceLt : "transparent",
         transition: "background 0.12s",
         gap: 4,
+        boxSizing: "border-box",
       }}
     >
-      {starred && <Ph name="star-fill" size={11} color="#E0A34A" style={{ flexShrink: 0 }} />}
+      {starred && <Ph name="star-fill" size={11} color="var(--icon-accent)" style={{ flexShrink: 0 }} />}
       <span
         style={{
           fontFamily: T.fontBody,
-          fontSize: 13,
+          fontSize: 14,
           fontWeight: 400,
           color: active ? T.textAccent : T.textMd,
           overflow: "hidden",
@@ -201,6 +205,35 @@ const ChatRow = ({ label, starred, active, onClick }) => {
   );
 };
 
+// ── Ghost icon button ────────────────────────────────────────────────
+
+/** Interactive ghost icon button — transparent bg, hover surface-lt */
+const GhostIconButton = ({ icon, size = 16, onClick }) => {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <button
+      onClick={onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        width: 32,
+        height: 32,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: hovered ? T.surfaceLt : "transparent",
+        border: "none",
+        cursor: "pointer",
+        borderRadius: T.radiusMd,
+        flexShrink: 0,
+        transition: "background 0.12s",
+      }}
+    >
+      <Ph name={icon} size={size} color={hovered ? "var(--icon-active)" : "var(--icon-default)"} />
+    </button>
+  );
+};
+
 // ── Eyebrow label ───────────────────────────────────────────────────
 
 const Eyebrow = ({ children, style: xs }) => (
@@ -212,7 +245,10 @@ const Eyebrow = ({ children, style: xs }) => (
       letterSpacing: "0.20em",
       textTransform: "uppercase",
       color: T.textMuted,
-      padding: "0 10px 8px",
+      padding: "0 10px",
+      margin: 0,
+      marginBottom: 8,
+      flexShrink: 0,
       ...xs,
     }}
   >
@@ -222,7 +258,7 @@ const Eyebrow = ({ children, style: xs }) => (
 
 // ── Main Component ──────────────────────────────────────────────────
 
-export default function Header({
+export default function SideNav({
   open = true,
   onToggle,
   activeSection = null,
@@ -255,6 +291,7 @@ export default function Header({
         position: "relative",
         zIndex: 10,
         overflowX: "hidden",
+        boxSizing: "border-box",
         transition: "width 0.2s cubic-bezier(0.4,0,0.2,1)",
       }}
     >
@@ -268,29 +305,17 @@ export default function Header({
           alignItems: "center",
           justifyContent: open ? "space-between" : "center",
           padding: open ? "0 14px 0 18px" : 0,
+          boxSizing: "border-box",
         }}
       >
         {open && <HumLogo />}
-        <button
-          onClick={onToggle}
-          style={{
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            padding: 6,
-            borderRadius: T.radiusMd,
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <Ph name="sidebar-simple" size={17} color={T.textLt} />
-        </button>
+        <GhostIconButton icon="sidebar-simple" size={17} onClick={onToggle} />
       </div>
 
       {open ? (
         <>
           {/* ── Quick actions ── */}
-          <div style={{ width: "100%", flexShrink: 0, padding: "4px 10px 6px", display: "flex", flexDirection: "column", gap: 1 }}>
+          <div style={{ width: "100%", flexShrink: 0, padding: "4px 10px 6px", display: "flex", flexDirection: "column", gap: 2, boxSizing: "border-box" }}>
             {[
               { icon: "note-pencil", label: "New chat", action: onNewChat },
               { icon: "magnifying-glass", label: "Search", action: onSearchClick },
@@ -300,7 +325,7 @@ export default function Header({
           </div>
 
           {/* ── Workspace nav ── */}
-          <div style={{ width: "100%", flexShrink: 0, padding: "14px 10px 4px" }}>
+          <div style={{ width: "100%", flexShrink: 0, padding: "14px 10px 4px", boxSizing: "border-box", display: "flex", flexDirection: "column", gap: 2 }}>
             <Eyebrow>Workspace</Eyebrow>
             {navSections.map((n) => (
               <NavItem
@@ -324,7 +349,8 @@ export default function Header({
               padding: "14px 10px 8px",
               display: "flex",
               flexDirection: "column",
-              gap: 1,
+              gap: 2,
+              boxSizing: "border-box",
             }}
           >
             {chatSessions.some((s) => s.starred) && (
@@ -344,7 +370,7 @@ export default function Header({
                       />
                     );
                   })}
-                <div style={{ height: 12 }} />
+                <div style={{ height: 12, flexShrink: 0 }} />
               </>
             )}
             <Eyebrow>Recent Chats</Eyebrow>
@@ -361,7 +387,7 @@ export default function Header({
 
           {/* ── Optional extra content (e.g. connectors widget) ── */}
           {(children || onConnectorsClick) && (
-            <div style={{ width: "100%", flexShrink: 0, padding: "6px 10px 8px" }}>
+            <div style={{ width: "100%", flexShrink: 0, padding: "6px 10px 8px", boxSizing: "border-box" }}>
               {children || (
                 <ConnectorsWidget onClick={onConnectorsClick} />
               )}
@@ -370,7 +396,7 @@ export default function Header({
         </>
       ) : (
         /* ── Collapsed nav icons ── */
-        <div style={{ width: "100%", flexShrink: 0, padding: "14px 8px 8px", display: "flex", flexDirection: "column", gap: 1 }}>
+        <div style={{ width: "100%", flexShrink: 0, padding: "14px 8px 8px", display: "flex", flexDirection: "column", gap: 1, boxSizing: "border-box" }}>
           {navSections.map((n) => (
             <NavItem
               key={n.id}
@@ -397,6 +423,7 @@ export default function Header({
           alignItems: "center",
           justifyContent: open ? "space-between" : "center",
           position: "relative",
+          boxSizing: "border-box",
         }}
       >
         {open ? (
@@ -419,7 +446,7 @@ export default function Header({
                   flexShrink: 0,
                 }}
               >
-                <Ph name="user" size={15} color={T.textLt} />
+                <Ph name="user" size={15} color="var(--icon-default)" />
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
                 <span style={{ fontFamily: T.fontBody, fontSize: 13, fontWeight: 500, color: T.textPrimary, lineHeight: 1 }}>
@@ -452,7 +479,7 @@ export default function Header({
                 justifyContent: "center",
               }}
             >
-              <Ph name="user" size={14} color={T.textLt} />
+              <Ph name="user" size={14} color="var(--icon-default)" />
             </div>
             {unreadCount > 0 && (
               <span
@@ -463,7 +490,7 @@ export default function Header({
                   width: 9,
                   height: 9,
                   borderRadius: "50%",
-                  background: "#E0A34A",
+                  background: "var(--icon-accent)",
                   border: `2px solid ${T.surface}`,
                 }}
               />
@@ -498,7 +525,7 @@ function FooterIconButton({ icon, onClick, badge }) {
         transition: "background 0.12s",
       }}
     >
-      <Ph name={icon} size={16} color={T.textMuted} />
+      <Ph name={icon} size={16} color="var(--icon-muted)" />
       {badge > 0 && (
         <span
           style={{
@@ -508,7 +535,7 @@ function FooterIconButton({ icon, onClick, badge }) {
             width: 14,
             height: 14,
             borderRadius: "50%",
-            background: "#E0A34A",
+            background: "var(--icon-accent)",
             color: "#fff",
             fontFamily: T.fontDisplay,
             fontSize: 8,

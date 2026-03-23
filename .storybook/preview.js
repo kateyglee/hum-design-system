@@ -1,4 +1,6 @@
 import '../src/tokens/light.css';
+import '@phosphor-icons/web/regular/style.css';
+import '@phosphor-icons/web/fill/style.css';
 
 /** @type { import('@storybook/react').Preview } */
 const preview = {

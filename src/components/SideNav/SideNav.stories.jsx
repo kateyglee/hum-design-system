@@ -1,10 +1,9 @@
-import Header from './Header';
+import SideNav from './SideNav';
 
 const defaultNav = [
-  { id: 'connectors', icon: 'plugs-connected', label: 'Connectors', badge: '3' },
-  { id: 'campaigns', icon: 'chart-bar', label: 'Campaigns' },
-  { id: 'reports', icon: 'file-text', label: 'Reports' },
-  { id: 'audiences', icon: 'users-three', label: 'Audiences' },
+  { id: 'runbooks', icon: 'arrows-clockwise', label: 'Runbooks' },
+  { id: 'chats', icon: 'chat-circle-dots', label: 'Chats' },
+  { id: 'library', icon: 'books', label: 'Library' },
 ];
 
 const defaultChats = [
@@ -16,8 +15,8 @@ const defaultChats = [
 ];
 
 export default {
-  title: 'Navigation/Header',
-  component: Header,
+  title: 'Navigation/SideNav',
+  component: SideNav,
   parameters: {
     layout: 'fullscreen',
   },

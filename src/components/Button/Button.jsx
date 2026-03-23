@@ -5,18 +5,20 @@
  * Uses Geist Mono 14px/600, all-caps, 0.08em letter-spacing.
  *
  * Props:
- *   variant   — "primary" | "outline" | "ghost" | "danger" (default: "primary")
- *   size      — "sm" | "md" | "lg" (default: "md")
- *   iconOnly  — boolean, renders square padding for icon-only buttons
- *   disabled  — boolean
- *   children  — button content (text, icons, or both)
- *   style     — optional style overrides merged onto the button
- *   ...rest   — all other props forwarded to the <button> element
+ *   variant      — "primary" | "outline" | "ghost" | "danger" (default: "primary")
+ *   size         — "sm" | "md" | "lg" (default: "md")
+ *   icon         — Phosphor icon name (e.g. "plus", "download"). Rendered as <i> tag.
+ *   iconPosition — "left" | "right" (default: "left"). Ignored when iconOnly is true.
+ *   iconOnly     — boolean, renders square button with icon only (no text)
+ *   disabled     — boolean
+ *   children     — button text content
+ *   style        — optional style overrides merged onto the button
+ *   ...rest      — all other props forwarded to the <button> element
  */
 
 import { useState } from "react";
 
-// ── Inline styles (no external CSS needed) ──────────────────────────
+// ── Tokens ──────────────────────────────────────────────────────────
 
 const TOKENS = {
   fontDisplay: '"Geist Mono", monospace',
@@ -39,9 +41,9 @@ const TOKENS = {
 };
 
 const SIZE_MAP = {
-  sm: { fontSize: 11, padding: "6px 14px", iconPadding: "6px" },
-  md: { fontSize: 14, padding: "10px 20px", iconPadding: "10px" },
-  lg: { fontSize: 14, padding: "14px 28px", iconPadding: "14px" },
+  sm: { fontSize: 11, padding: "6px 14px", iconPadding: "6px", iconSize: 14 },
+  md: { fontSize: 14, padding: "10px 20px", iconPadding: "10px", iconSize: 16 },
+  lg: { fontSize: 14, padding: "14px 28px", iconPadding: "14px", iconSize: 16 },
 };
 
 const baseStyle = {
@@ -92,11 +94,28 @@ function getVariantStyles(variant, hovered) {
   }
 }
 
+// ── Icon helper ─────────────────────────────────────────────────────
+
+const PhIcon = ({ name, size = 16 }) => (
+  <i
+    className={"ph ph-" + name}
+    style={{
+      fontSize: size,
+      lineHeight: 1,
+      flexShrink: 0,
+      display: "inline-flex",
+      alignItems: "center",
+    }}
+  />
+);
+
 // ── Component ───────────────────────────────────────────────────────
 
 export default function Button({
   variant = "primary",
   size = "md",
+  icon,
+  iconPosition = "left",
   iconOnly = false,
   disabled = false,
   children,
@@ -119,6 +138,10 @@ export default function Button({
     ...styleProp,
   };
 
+  const iconEl = icon ? (
+    <PhIcon name={icon} size={sizeTokens.iconSize} />
+  ) : null;
+
   return (
     <button
       style={composedStyle}
@@ -127,7 +150,15 @@ export default function Button({
       onMouseLeave={() => setHovered(false)}
       {...rest}
     >
-      {children}
+      {iconOnly ? (
+        iconEl
+      ) : (
+        <>
+          {iconPosition === "left" && iconEl}
+          {children}
+          {iconPosition === "right" && iconEl}
+        </>
+      )}
     </button>
   );
 }
