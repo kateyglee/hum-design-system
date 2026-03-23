@@ -7,11 +7,14 @@
  * Props:
  *   variant      — "primary" | "outline" | "ghost" | "danger" (default: "primary")
  *   size         — "sm" | "md" | "lg" (default: "md")
+ *   type         — "button" | "submit" | "reset" (default: "button")
  *   icon         — Phosphor icon name (e.g. "plus", "download"). Rendered as <i> tag.
  *   iconPosition — "left" | "right" (default: "left"). Ignored when iconOnly is true.
  *   iconOnly     — boolean, renders square button with icon only (no text)
+ *   fullWidth    — boolean, stretches button to fill parent width
  *   disabled     — boolean
  *   loading      — boolean, shows spinner and disables interaction
+ *   tooltip      — string, native title tooltip on hover
  *   children     — button text content
  *   style        — optional style overrides merged onto the button
  *   ...rest      — all other props forwarded to the <button> element
@@ -148,11 +151,14 @@ const PhIcon = ({ name, size = 16 }) => (
 export default function Button({
   variant = "primary",
   size = "md",
+  type = "button",
   icon,
   iconPosition = "left",
   iconOnly = false,
+  fullWidth = false,
   disabled = false,
   loading = false,
+  tooltip,
   children,
   style: styleProp,
   ...rest
@@ -168,10 +174,11 @@ export default function Button({
     ...variantStyles,
     fontSize: sizeTokens.fontSize,
     padding: iconOnly ? sizeTokens.iconPadding : sizeTokens.padding,
-    borderRadius: iconOnly ? TOKENS.radiusMd : TOKENS.radiusFull,
+    borderRadius: TOKENS.radiusFull,
     opacity: disabled ? 0.3 : 1,
     cursor: isDisabled ? "not-allowed" : "pointer",
     pointerEvents: disabled ? "none" : "auto",
+    width: fullWidth ? "100%" : undefined,
     ...styleProp,
   };
 
@@ -185,8 +192,10 @@ export default function Button({
 
   return (
     <button
+      type={type}
       style={composedStyle}
       disabled={isDisabled}
+      title={tooltip}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       {...rest}
