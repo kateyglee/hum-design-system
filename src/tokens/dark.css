@@ -37,6 +37,13 @@
   --text-info:      #6B9EF0;
   --text-warning:   #E0A34A;
 
+  /* Icons */
+  --icon-default:  #707080;   /* matches --text-lt */
+  --icon-active:   #C8C8D0;   /* matches --text-accent */
+  --icon-muted:    #505060;   /* matches --text-muted */
+  --icon-disabled: #2E2E38;   /* matches --text-disabled */
+  --icon-accent:   #E0A34A;   /* amber, used for starred/highlights */
+
   /* Borders */
   --border-lt:     #1C1C26;
   --border:        #242430;
