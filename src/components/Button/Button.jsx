@@ -11,6 +11,7 @@
  *   iconPosition — "left" | "right" (default: "left"). Ignored when iconOnly is true.
  *   iconOnly     — boolean, renders square button with icon only (no text)
  *   disabled     — boolean
+ *   loading      — boolean, shows spinner and disables interaction
  *   children     — button text content
  *   style        — optional style overrides merged onto the button
  *   ...rest      — all other props forwarded to the <button> element
@@ -41,9 +42,9 @@ const TOKENS = {
 };
 
 const SIZE_MAP = {
-  sm: { fontSize: 11, padding: "6px 14px", iconPadding: "6px", iconSize: 14 },
-  md: { fontSize: 14, padding: "10px 20px", iconPadding: "10px", iconSize: 16 },
-  lg: { fontSize: 14, padding: "14px 28px", iconPadding: "14px", iconSize: 16 },
+  sm: { fontSize: 11, padding: "6px 14px", iconPadding: "6px", iconSize: 14, spinnerSize: 12 },
+  md: { fontSize: 14, padding: "10px 20px", iconPadding: "10px", iconSize: 16, spinnerSize: 14 },
+  lg: { fontSize: 14, padding: "14px 28px", iconPadding: "14px", iconSize: 16, spinnerSize: 16 },
 };
 
 const baseStyle = {
@@ -62,6 +63,7 @@ const baseStyle = {
   whiteSpace: "nowrap",
   lineHeight: "20px",
   boxSizing: "border-box",
+  position: "relative",
 };
 
 function getVariantStyles(variant, hovered) {
@@ -94,6 +96,38 @@ function getVariantStyles(variant, hovered) {
   }
 }
 
+// ── Spinner ─────────────────────────────────────────────────────────
+
+const Spinner = ({ size = 14, color = "currentColor" }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    style={{
+      animation: "hum-spin 0.8s linear infinite",
+      flexShrink: 0,
+    }}
+  >
+    <style>{`@keyframes hum-spin { to { transform: rotate(360deg); } }`}</style>
+    <circle
+      cx="12"
+      cy="12"
+      r="10"
+      stroke={color}
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      opacity="0.25"
+    />
+    <path
+      d="M12 2a10 10 0 0 1 10 10"
+      stroke={color}
+      strokeWidth="2.5"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
 // ── Icon helper ─────────────────────────────────────────────────────
 
 const PhIcon = ({ name, size = 16 }) => (
@@ -118,14 +152,16 @@ export default function Button({
   iconPosition = "left",
   iconOnly = false,
   disabled = false,
+  loading = false,
   children,
   style: styleProp,
   ...rest
 }) {
   const [hovered, setHovered] = useState(false);
 
+  const isDisabled = disabled || loading;
   const sizeTokens = SIZE_MAP[size] || SIZE_MAP.md;
-  const variantStyles = getVariantStyles(variant, hovered && !disabled);
+  const variantStyles = getVariantStyles(variant, hovered && !isDisabled);
 
   const composedStyle = {
     ...baseStyle,
@@ -134,29 +170,34 @@ export default function Button({
     padding: iconOnly ? sizeTokens.iconPadding : sizeTokens.padding,
     borderRadius: iconOnly ? TOKENS.radiusMd : TOKENS.radiusFull,
     opacity: disabled ? 0.3 : 1,
+    cursor: isDisabled ? "not-allowed" : "pointer",
     pointerEvents: disabled ? "none" : "auto",
     ...styleProp,
   };
 
-  const iconEl = icon ? (
+  const iconEl = icon && !loading ? (
     <PhIcon name={icon} size={sizeTokens.iconSize} />
+  ) : null;
+
+  const spinnerEl = loading ? (
+    <Spinner size={sizeTokens.spinnerSize} color="currentColor" />
   ) : null;
 
   return (
     <button
       style={composedStyle}
-      disabled={disabled}
+      disabled={isDisabled}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       {...rest}
     >
       {iconOnly ? (
-        iconEl
+        loading ? spinnerEl : iconEl
       ) : (
         <>
-          {iconPosition === "left" && iconEl}
-          {children}
-          {iconPosition === "right" && iconEl}
+          {loading ? spinnerEl : iconPosition === "left" && iconEl}
+          <span style={{ opacity: loading && iconOnly ? 0 : 1 }}>{children}</span>
+          {!loading && iconPosition === "right" && iconEl}
         </>
       )}
     </button>
