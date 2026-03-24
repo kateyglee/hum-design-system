@@ -52,7 +52,7 @@ export default function NavMenuItem({
     borderRadius: "var(--radius-md)",
     cursor: "pointer",
     fontFamily: "var(--font-body)",
-    fontSize: 14,
+    fontSize: "var(--text-base)",
     fontWeight: 400,
     letterSpacing: 0,
     textTransform: "none",
@@ -84,13 +84,13 @@ export default function NavMenuItem({
         <span
           style={{
             fontFamily: "var(--font-display)",
-            fontSize: 9,
+            fontSize: "var(--text-xs)",
             fontWeight: 600,
             padding: "2px 6px",
             borderRadius: "var(--radius-full)",
             background: "var(--accent-dim)",
             color: "var(--text-accent)",
-            letterSpacing: "0.08em",
+            letterSpacing: "var(--tracking-normal)",
           }}
         >
           {badge}

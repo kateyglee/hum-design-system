@@ -18,7 +18,7 @@ export const buttonArgTypes = {
   },
   size: {
     control: 'radio',
-    options: ['sm', 'md', 'lg'],
+    options: ['xs', 'sm', 'md', 'lg'],
     description: 'Button size',
     table: { category: 'Appearance' },
   },

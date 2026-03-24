@@ -5,6 +5,38 @@
   --font-display: "Geist Mono", monospace;
   --font-body:    "IBM Plex Sans", system-ui, sans-serif;
 
+  /* Typography — Font Weights */
+  --font-light:    300;
+  --font-regular:  400;
+  --font-medium:   500;
+  --font-semibold: 600;
+  --font-bold:     700;
+
+  /* Typography — Font Sizes */
+  --text-2xs:  11px;   /* Button sm/xs, Caption */
+  --text-xs:   10px;   /* Badge, Eyebrow */
+  --text-sm:   12px;   /* Caption, Helper */
+  --text-base: 14px;   /* Body Small, Button, Input, H3 */
+  --text-md:   16px;   /* Body Regular */
+  --text-lg:   18px;   /* H2 */
+  --text-xl:   20px;   /* H1 Compact */
+  --text-2xl:  24px;   /* H1, Data/Metric */
+
+  /* Typography — Line Heights */
+  --leading-tight:   14px;  /* Badge, Eyebrow */
+  --leading-snug:    16px;  /* Caption */
+  --leading-normal:  20px;  /* Body Small, Button, Input */
+  --leading-relaxed: 24px;  /* Body Regular */
+  --leading-loose:   28px;  /* H1 Compact, H2 */
+  --leading-xl:      32px;  /* H1, Data/Metric */
+
+  /* Typography — Letter Spacing */
+  --tracking-tight:  0.02em;  /* Input, data strings */
+  --tracking-normal: 0.08em;  /* Buttons */
+  --tracking-wide:   0.12em;  /* Badge / Tag */
+  --tracking-wider:  0.20em;  /* Eyebrow */
+  --tracking-widest: 0.28em;  /* Section Label */
+
   /* Chrome Gray Ramp */
   --chrome-50:  #F2F2F5;
   --chrome-200: #DCDCE6;

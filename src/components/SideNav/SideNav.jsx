@@ -27,27 +27,7 @@
 
 import { useState } from "react";
 
-// ── Tokens ──────────────────────────────────────────────────────────
-
-const T = {
-  fontDisplay: '"Geist Mono", monospace',
-  fontBody: '"IBM Plex Sans", system-ui, sans-serif',
-  bg: "#FAFAFA",
-  surface: "#FFFFFF",
-  surfaceLt: "#F7F7FA",
-  surfaceMd: "#EFEFF2",
-  textPrimary: "#111116",
-  textMd: "#3A3A44",
-  textLt: "#6B6B78",
-  textMuted: "#9898A4",
-  textAccent: "#2E2E38",
-  border: "#E2E2E8",
-  borderDk: "#C8C8D0",
-  accentDim: "rgba(46,46,56,0.06)",
-  radiusMd: 6,
-  radiusLg: 8,
-  radiusFull: 9999,
-};
+// ── Tokens (CSS custom properties from src/tokens/) ─────────────────
 
 // ── Sub-components ──────────────────────────────────────────────────
 
@@ -96,11 +76,11 @@ const HumLogo = () => (
     <HumLogoIcon size={22} />
     <span
       style={{
-        fontFamily: T.fontDisplay,
+        fontFamily: "var(--font-display)",
         fontWeight: 300,
         fontSize: 15,
-        letterSpacing: "0.45em",
-        color: T.textPrimary,
+        letterSpacing: "var(--tracking-widest)",
+        color: "var(--text-primary)",
         textTransform: "uppercase",
         lineHeight: 1,
       }}
@@ -127,15 +107,15 @@ const NavItem = ({ icon, label, active, collapsed, badge, onClick }) => {
         gap: collapsed ? 0 : 10,
         height: 32,
         padding: collapsed ? 0 : "0 10px",
-        borderRadius: T.radiusMd,
+        borderRadius: "var(--radius-md)",
         cursor: "pointer",
-        fontFamily: T.fontBody,
-        fontSize: 14,
+        fontFamily: "var(--font-body)",
+        fontSize: "var(--text-base)",
         fontWeight: 400,
         letterSpacing: 0,
         textTransform: "none",
-        color: active ? T.textAccent : T.textMd,
-        background: active ? T.accentDim : hovered ? T.surfaceLt : "transparent",
+        color: active ? "var(--text-accent)" : "var(--text-md)",
+        background: active ? "var(--accent-dim)" : hovered ? "var(--surface-lt)" : "transparent",
         transition: "background 0.12s, color 0.12s",
         boxSizing: "border-box",
       }}
@@ -145,14 +125,14 @@ const NavItem = ({ icon, label, active, collapsed, badge, onClick }) => {
       {!collapsed && badge && (
         <span
           style={{
-            fontFamily: T.fontDisplay,
-            fontSize: 9,
+            fontFamily: "var(--font-display)",
+            fontSize: "var(--text-xs)",
             fontWeight: 600,
             padding: "2px 6px",
-            borderRadius: T.radiusFull,
-            background: T.accentDim,
-            color: T.textAccent,
-            letterSpacing: "0.08em",
+            borderRadius: "var(--radius-full)",
+            background: "var(--accent-dim)",
+            color: "var(--text-accent)",
+            letterSpacing: "var(--tracking-normal)",
           }}
         >
           {badge}
@@ -178,9 +158,9 @@ const ChatRow = ({ label, starred, active, onClick }) => {
         minHeight: 32,
         flexShrink: 0,
         padding: "0 4px 0 10px",
-        borderRadius: T.radiusMd,
+        borderRadius: "var(--radius-md)",
         cursor: "pointer",
-        background: active ? T.accentDim : hovered ? T.surfaceLt : "transparent",
+        background: active ? "var(--accent-dim)" : hovered ? "var(--surface-lt)" : "transparent",
         transition: "background 0.12s",
         gap: 4,
         boxSizing: "border-box",
@@ -189,10 +169,10 @@ const ChatRow = ({ label, starred, active, onClick }) => {
       {starred && <Ph name="star-fill" size={11} color="var(--icon-accent)" style={{ flexShrink: 0 }} />}
       <span
         style={{
-          fontFamily: T.fontBody,
-          fontSize: 14,
+          fontFamily: "var(--font-body)",
+          fontSize: "var(--text-base)",
           fontWeight: 400,
-          color: active ? T.textAccent : T.textMd,
+          color: active ? "var(--text-accent)" : "var(--text-md)",
           overflow: "hidden",
           textOverflow: "ellipsis",
           whiteSpace: "nowrap",
@@ -221,10 +201,10 @@ const GhostIconButton = ({ icon, size = 16, onClick }) => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: hovered ? T.surfaceLt : "transparent",
+        background: hovered ? "var(--surface-lt)" : "transparent",
         border: "none",
         cursor: "pointer",
-        borderRadius: T.radiusMd,
+        borderRadius: "var(--radius-md)",
         flexShrink: 0,
         transition: "background 0.12s",
       }}
@@ -239,12 +219,12 @@ const GhostIconButton = ({ icon, size = 16, onClick }) => {
 const Eyebrow = ({ children, style: xs }) => (
   <p
     style={{
-      fontFamily: T.fontDisplay,
-      fontSize: 10,
+      fontFamily: "var(--font-display)",
+      fontSize: "var(--text-xs)",
       fontWeight: 500,
-      letterSpacing: "0.20em",
+      letterSpacing: "var(--tracking-wider)",
       textTransform: "uppercase",
-      color: T.textMuted,
+      color: "var(--text-muted)",
       padding: "0 10px",
       margin: 0,
       marginBottom: 8,
@@ -286,8 +266,8 @@ export default function SideNav({
         flexDirection: "column",
         height: "100vh",
         flexShrink: 0,
-        background: T.surface,
-        borderRight: `1px solid ${T.border}`,
+        background: "var(--surface)",
+        borderRight: `1px solid var(--border)`,
         position: "relative",
         zIndex: 10,
         overflowX: "hidden",
@@ -395,19 +375,31 @@ export default function SideNav({
           )}
         </>
       ) : (
-        /* ── Collapsed nav icons ── */
-        <div style={{ width: "100%", flexShrink: 0, padding: "14px 8px 8px", display: "flex", flexDirection: "column", gap: 1, boxSizing: "border-box" }}>
-          {navSections.map((n) => (
-            <NavItem
-              key={n.id}
-              icon={n.icon}
-              label={n.label}
+        <>
+          {/* ── Collapsed quick actions ── */}
+          <div style={{ width: "100%", flexShrink: 0, padding: "4px 8px 6px", display: "flex", flexDirection: "column", gap: 2, alignItems: "center", boxSizing: "border-box" }}>
+            {[
+              { icon: "note-pencil", label: "New chat", action: onNewChat },
+              { icon: "magnifying-glass", label: "Search", action: onSearchClick },
+            ].map((item) => (
+              <NavItem key={item.label} icon={item.icon} label={item.label} active={false} collapsed onClick={item.action} />
+            ))}
+          </div>
+
+          {/* ── Collapsed nav icons ── */}
+          <div style={{ width: "100%", flexShrink: 0, padding: "14px 8px 8px", display: "flex", flexDirection: "column", gap: 2, alignItems: "center", boxSizing: "border-box" }}>
+            {navSections.map((n) => (
+              <NavItem
+                key={n.id}
+                icon={n.icon}
+                label={n.label}
               active={activeSection === n.id}
               collapsed
               onClick={() => onSectionChange && onSectionChange(activeSection === n.id ? null : n.id)}
             />
           ))}
-        </div>
+          </div>
+        </>
       )}
 
       {!open && <div style={{ flex: 1 }} />}
@@ -417,7 +409,7 @@ export default function SideNav({
         style={{
           width: "100%",
           flexShrink: 0,
-          borderTop: `1px solid ${T.border}`,
+          borderTop: `1px solid var(--border)`,
           padding: open ? "10px 12px 14px" : "10px 0 14px",
           display: "flex",
           alignItems: "center",
@@ -438,8 +430,8 @@ export default function SideNav({
                   width: 28,
                   height: 28,
                   borderRadius: "50%",
-                  background: T.surfaceMd,
-                  border: `1px solid ${T.borderDk}`,
+                  background: "var(--surface-md)",
+                  border: `1px solid var(--border-dk)`,
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -449,10 +441,10 @@ export default function SideNav({
                 <Ph name="user" size={15} color="var(--icon-default)" />
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                <span style={{ fontFamily: T.fontBody, fontSize: 13, fontWeight: 500, color: T.textPrimary, lineHeight: 1 }}>
+                <span style={{ fontFamily: "var(--font-body)", fontSize: 13, fontWeight: 500, color: "var(--text-primary)", lineHeight: "var(--leading-tight)" }}>
                   {userName}
                 </span>
-                <span style={{ fontFamily: T.fontBody, fontSize: 11, color: T.textMuted, lineHeight: 1.4 }}>
+                <span style={{ fontFamily: "var(--font-body)", fontSize: 11, color: "var(--text-muted)", lineHeight: 1.4 }}>
                   {userPlan}
                 </span>
               </div>
@@ -472,8 +464,8 @@ export default function SideNav({
                 width: 28,
                 height: 28,
                 borderRadius: "50%",
-                background: T.surfaceMd,
-                border: `1px solid ${T.borderDk}`,
+                background: "var(--surface-md)",
+                border: `1px solid var(--border-dk)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -491,7 +483,7 @@ export default function SideNav({
                   height: 9,
                   borderRadius: "50%",
                   background: "var(--icon-accent)",
-                  border: `2px solid ${T.surface}`,
+                  border: `2px solid ${"var(--surface)"}`,
                 }}
               />
             )}
@@ -514,11 +506,11 @@ function FooterIconButton({ icon, onClick, badge }) {
       onMouseLeave={() => setHovered(false)}
       style={{
         position: "relative",
-        background: hovered ? T.surfaceLt : "none",
+        background: hovered ? "var(--surface-lt)" : "none",
         border: "none",
         cursor: "pointer",
         padding: 5,
-        borderRadius: T.radiusMd,
+        borderRadius: "var(--radius-md)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -537,8 +529,8 @@ function FooterIconButton({ icon, onClick, badge }) {
             borderRadius: "50%",
             background: "var(--icon-accent)",
             color: "#fff",
-            fontFamily: T.fontDisplay,
-            fontSize: 8,
+            fontFamily: "var(--font-display)",
+            fontSize: "var(--text-xs)",
             fontWeight: 700,
             display: "flex",
             alignItems: "center",
@@ -562,9 +554,9 @@ function ConnectorsWidget({ onClick }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        border: `1px solid ${hovered ? T.borderDk : T.border}`,
-        borderRadius: T.radiusLg,
-        background: T.surfaceLt,
+        border: `1px solid ${hovered ? "var(--border-dk)" : "var(--border)"}`,
+        borderRadius: "var(--radius-lg)",
+        background: "var(--surface-lt)",
         padding: 8,
         cursor: "pointer",
         transition: "border-color 0.15s",
@@ -573,17 +565,17 @@ function ConnectorsWidget({ onClick }) {
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
         <span
           style={{
-            fontFamily: T.fontDisplay,
-            fontSize: 10,
+            fontFamily: "var(--font-display)",
+            fontSize: "var(--text-xs)",
             fontWeight: 500,
-            letterSpacing: "0.16em",
+            letterSpacing: "var(--tracking-wider)",
             textTransform: "uppercase",
-            color: T.textMuted,
+            color: "var(--text-muted)",
           }}
         >
           Connectors
         </span>
-        <Ph name="plus" size={14} color={T.textMuted} />
+        <Ph name="plus" size={14} color={"var(--text-muted)"} />
       </div>
       <div style={{ display: "flex", alignItems: "center" }}>
         {/* Stacked avatar dots — placeholder circles */}
@@ -595,7 +587,7 @@ function ConnectorsWidget({ onClick }) {
               height: 20,
               borderRadius: "50%",
               background: i === 2 ? "#16A34A" : "#fff",
-              border: `1.5px solid ${T.surfaceLt}`,
+              border: `1.5px solid ${"var(--surface-lt)"}`,
               boxShadow: "0 1px 3px rgba(0,0,0,0.10)",
               marginLeft: i > 0 ? -6 : 0,
               display: "flex",
@@ -610,7 +602,7 @@ function ConnectorsWidget({ onClick }) {
                 width: 8,
                 height: 8,
                 borderRadius: "50%",
-                background: i === 2 ? "#fff" : T.borderDk,
+                background: i === 2 ? "#fff" : "var(--border-dk)",
               }}
             />
           </div>
