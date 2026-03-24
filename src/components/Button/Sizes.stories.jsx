@@ -7,6 +7,10 @@ export default {
   argTypes: buttonArgTypes,
 };
 
+export const ExtraSmall = {
+  args: { variant: 'primary', size: 'xs', children: 'Extra Small' },
+};
+
 export const Small = {
   args: { variant: 'primary', size: 'sm', children: 'Small' },
 };
@@ -22,6 +26,7 @@ export const Large = {
 export const AllSizes = {
   render: () => (
     <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+      <Button variant="primary" size="xs">Extra Small</Button>
       <Button variant="primary" size="sm">Small</Button>
       <Button variant="primary" size="md">Default</Button>
       <Button variant="primary" size="lg">Large</Button>

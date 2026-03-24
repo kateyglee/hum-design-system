@@ -22,7 +22,7 @@
 import { useState } from "react";
 
 const SIZE_MAP = {
-  sm: { fontSize: 12, padding: "6px 10px" },
+  sm: { fontSize: "var(--text-sm)", padding: "6px 10px" },
   md: { fontSize: 13, padding: "9px 12px" },
 };
 
@@ -48,8 +48,8 @@ export default function Input({
     fontFamily: "var(--font-display)",
     fontSize: sizeTokens.fontSize,
     fontWeight: 400,
-    letterSpacing: "0.02em",
-    lineHeight: "20px",
+    letterSpacing: "var(--tracking-tight)",
+    lineHeight: "var(--leading-normal)",
     color: disabled ? "var(--text-disabled)" : "var(--text-primary)",
     background: disabled ? "var(--surface-lt)" : "var(--surface)",
     border: `1px solid ${error ? "var(--text-error)" : focused ? "var(--border-accent)" : "var(--border-dk)"}`,
@@ -67,9 +67,9 @@ export default function Input({
 
   const labelStyle = {
     fontFamily: "var(--font-display)",
-    fontSize: 10,
+    fontSize: "var(--text-xs)",
     fontWeight: 500,
-    letterSpacing: "0.14em",
+    letterSpacing: "var(--tracking-wide)",
     textTransform: "uppercase",
     color: error ? "var(--text-error)" : "var(--text-muted)",
     display: "block",
@@ -78,8 +78,8 @@ export default function Input({
 
   const errorStyle = {
     fontFamily: "var(--font-body)",
-    fontSize: 12,
-    lineHeight: "16px",
+    fontSize: "var(--text-sm)",
+    lineHeight: "var(--leading-snug)",
     color: "var(--text-error)",
     marginTop: 4,
   };

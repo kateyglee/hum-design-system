@@ -77,7 +77,7 @@ export default function ChatHistoryItem({
       <span
         style={{
           fontFamily: "var(--font-body)",
-          fontSize: 14,
+          fontSize: "var(--text-base)",
           fontWeight: 400,
           color: active ? "var(--text-accent)" : "var(--text-md)",
           overflow: "hidden",

@@ -5,6 +5,19 @@ import '@phosphor-icons/web/fill/style.css';
 /** @type { import('@storybook/react').Preview } */
 const preview = {
   parameters: {
+    options: {
+      storySort: {
+        order: [
+          'Button',
+          'Button Group',
+          'Header',
+          'Navigation',
+          'Chat',
+          'Indicators',
+          'Primitives',
+        ],
+      },
+    },
     backgrounds: {
       default: 'Hum Light',
       values: [

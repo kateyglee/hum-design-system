@@ -22,32 +22,13 @@
 
 import { useState } from "react";
 
-// ── Tokens ──────────────────────────────────────────────────────────
-
-const TOKENS = {
-  fontDisplay: '"Geist Mono", monospace',
-  btnPrimaryBg: "#2E2E38",
-  btnPrimaryHover: "#1A1A24",
-  btnPrimaryText: "#FFFFFF",
-  btnOutlineBg: "#FFFFFF",
-  textMd: "#3A3A44",
-  textMuted: "#9898A4",
-  textLt: "#6B6B78",
-  textError: "#B91C1C",
-  borderDk: "#C8C8D0",
-  borderAccent: "rgba(46,46,56,0.25)",
-  ghostHover: "#F4F4F6",
-  accentDim: "rgba(46,46,56,0.06)",
-  stateErrorBg: "#FEF2F2",
-  radiusFull: 9999,
-  radius: 4,
-  radiusMd: 6,
-};
+// ── Tokens (CSS custom properties from src/tokens/) ─────────────────
 
 const SIZE_MAP = {
-  sm: { fontSize: 11, padding: "6px 14px", iconPadding: "6px", iconSize: 14, spinnerSize: 12 },
-  md: { fontSize: 14, padding: "10px 20px", iconPadding: "10px", iconSize: 16, spinnerSize: 14 },
-  lg: { fontSize: 14, padding: "14px 28px", iconPadding: "14px", iconSize: 16, spinnerSize: 16 },
+  xs: { fontSize: "var(--text-2xs)", padding: "4px 10px", iconPadding: "4px", iconSize: 12, spinnerSize: 10 },
+  sm: { fontSize: "var(--text-2xs)", padding: "6px 14px", iconPadding: "6px", iconSize: 14, spinnerSize: 12 },
+  md: { fontSize: "var(--text-base)", padding: "10px 20px", iconPadding: "10px", iconSize: 16, spinnerSize: 14 },
+  lg: { fontSize: "var(--text-base)", padding: "14px 28px", iconPadding: "14px", iconSize: 16, spinnerSize: 16 },
 };
 
 const baseStyle = {
@@ -55,16 +36,16 @@ const baseStyle = {
   alignItems: "center",
   justifyContent: "center",
   gap: 8,
-  fontFamily: TOKENS.fontDisplay,
+  fontFamily: "var(--font-display)",
   fontWeight: 600,
-  letterSpacing: "0.08em",
+  letterSpacing: "var(--tracking-normal)",
   textTransform: "uppercase",
-  borderRadius: TOKENS.radiusFull,
+  borderRadius: "var(--radius-full)",
   border: "none",
   cursor: "pointer",
   transition: "all 0.15s ease",
   whiteSpace: "nowrap",
-  lineHeight: "20px",
+  lineHeight: "var(--leading-normal)",
   boxSizing: "border-box",
   position: "relative",
 };
@@ -73,27 +54,27 @@ function getVariantStyles(variant, hovered) {
   switch (variant) {
     case "outline":
       return {
-        background: TOKENS.btnOutlineBg,
-        color: TOKENS.textMd,
-        border: `1px solid ${hovered ? TOKENS.borderAccent : TOKENS.borderDk}`,
+        background: "var(--btn-outline-bg)",
+        color: "var(--text-md)",
+        border: `1px solid ${hovered ? "var(--border-accent)" : "var(--border-dk)"}`,
       };
     case "ghost":
       return {
-        background: hovered ? TOKENS.ghostHover : "transparent",
-        color: TOKENS.textMd,
+        background: hovered ? "var(--btn-ghost-hover)" : "transparent",
+        color: "var(--text-md)",
         border: "none",
       };
     case "danger":
       return {
-        background: hovered ? TOKENS.stateErrorBg : "transparent",
-        color: TOKENS.textError,
+        background: hovered ? "var(--state-error-bg)" : "transparent",
+        color: "var(--text-error)",
         border: `1px solid rgba(185,28,28,${hovered ? "0.35" : "0.2"})`,
       };
     case "primary":
     default:
       return {
-        background: hovered ? TOKENS.btnPrimaryHover : TOKENS.btnPrimaryBg,
-        color: TOKENS.btnPrimaryText,
+        background: hovered ? "var(--btn-primary-hover)" : "var(--btn-primary-bg)",
+        color: "var(--btn-primary-text)",
         border: "none",
       };
   }
@@ -174,7 +155,7 @@ export default function Button({
     ...variantStyles,
     fontSize: sizeTokens.fontSize,
     padding: iconOnly ? sizeTokens.iconPadding : sizeTokens.padding,
-    borderRadius: TOKENS.radiusFull,
+    borderRadius: "var(--radius-full)",
     opacity: disabled ? 0.3 : 1,
     cursor: isDisabled ? "not-allowed" : "pointer",
     pointerEvents: disabled ? "none" : "auto",
